@@ -1,5 +1,6 @@
-const sizeOfGrid = 16;
+const amtOfGrids = 16;
 const container = document.querySelector('.container');
+const resetButton = document.querySelector('button')
 
 const createGrid = (amtOfGrids) => {
   for (let i = 0; i < amtOfGrids; i++) { //for loop inside another one
@@ -7,7 +8,7 @@ const createGrid = (amtOfGrids) => {
     row.classList.add('grid-row')
 
     for (let j = 0; j < amtOfGrids; j++) { //create each box for that row, in this inner loop
-      const widthAndHeight = 960 / sizeOfGrid
+      const widthAndHeight = 960 / amtOfGrids
       const gridBox = document.createElement('div')
       gridBox.classList.add('grid-box')
       gridBox.style.width = `${widthAndHeight}px`
@@ -16,16 +17,23 @@ const createGrid = (amtOfGrids) => {
       gridBox.addEventListener("mouseenter", e => { //*add hover effect here*
         gridBox.style.backgroundColor = 'purple'; //had syntax error here without style, remember kebab
       });
-
-      row.appendChild(gridBox) //append to above thing
+      row.appendChild(gridBox) //append to above row element
     }
 
     container.appendChild(row)
   }
 }
 
+resetButton.addEventListener('click', () => {
+  const userSize = Number(prompt('Pick dimensions for new grid:'))
 
-createGrid(sizeOfGrid)
+  while (userSize > 100) {
+    const userSize = Number.prompt('Pick dimensions for new grid 100 or less:')
+    createGrid(userSize)
+  }
+  
+})
+createGrid(amtOfGrids);
 
 
 // x Create the divs using JavaScript. 
